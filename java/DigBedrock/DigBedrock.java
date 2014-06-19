@@ -4,7 +4,7 @@ import net.minecraft.init.Blocks;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid="DigBedrock", name="DigBedrock", version="1.7srg-1",dependencies="required-after:FML")
+@Mod(modid="DigBedrock", name="DigBedrock", version="@VERSION@",dependencies="required-after:FML")
 //@NetworkMod(clientSideRequired=true, serverSideRequired=false)
 
 public class DigBedrock
