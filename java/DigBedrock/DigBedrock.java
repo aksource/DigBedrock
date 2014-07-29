@@ -42,10 +42,10 @@ public class DigBedrock
     public void digSpeed(PlayerEvent.BreakSpeed event) {
         if (event.block == Blocks.bedrock) {
             if (event.y < 40 && event.y > 0) {
-                event.newSpeed = event.originalSpeed / event.y;
+                event.newSpeed = event.originalSpeed * event.y;
             }
             if (event.y >= 40) {
-                event.newSpeed = event.originalSpeed / 40;
+                event.newSpeed = event.originalSpeed * 40;
             }
         }
     }
