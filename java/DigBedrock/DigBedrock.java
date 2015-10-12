@@ -29,9 +29,11 @@ public class DigBedrock
 
     @SubscribeEvent
     public void onHarvestBedrock(PlayerInteractEvent event) {
-        Block block = event.world.getBlockState(event.pos).getBlock();
-        if (event.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK && block == Blocks.bedrock && event.pos.getY() == 0) {
-            event.setCanceled(true);
+        if (event.pos != null) {
+            Block block = event.world.getBlockState(event.pos).getBlock();
+            if (event.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK && block == Blocks.bedrock && event.pos.getY() == 0) {
+                event.setCanceled(true);
+            }
         }
     }
 
