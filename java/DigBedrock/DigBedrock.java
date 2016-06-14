@@ -9,19 +9,18 @@ import net.minecraft.init.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.BlockEvent;
 
-@Mod(modid="DigBedrock", name="DigBedrock", version="@VERSION@",dependencies="required-after:FML")
+@Mod(modid = "DigBedrock", name = "DigBedrock", version = "@VERSION@", dependencies = "required-after:FML")
 
-public class DigBedrock
-{
-	@Mod.Instance("DigBedrock")
-	public static DigBedrock instance;
-	
-	@Mod.EventHandler
-	public void preInit(FMLPreInitializationEvent event)
-	{
-		Blocks.bedrock.setHardness(200.0F).setHarvestLevel("pickaxe", 3);
-	}
+public class DigBedrock {
+    @Mod.Instance("DigBedrock")
+    public static DigBedrock instance;
+
+    @Mod.EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
+        Blocks.bedrock.setHardness(200.0F).setHarvestLevel("pickaxe", 3);
+    }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
@@ -37,8 +36,19 @@ public class DigBedrock
     }
 
     @SubscribeEvent
+    public void breakBedRockEvent(BlockEvent.BreakEvent event) {
+        Block block = event.block;
+        if (block == Blocks.bedrock && event.y == 0) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
     public void digSpeed(PlayerEvent.BreakSpeed event) {
         if (event.block == Blocks.bedrock) {
+            if (event.y <= 0) {
+                event.setCanceled(true);
+            }
             if (event.y < 40 && event.y > 0) {
                 event.newSpeed = event.originalSpeed * event.y;
             }
