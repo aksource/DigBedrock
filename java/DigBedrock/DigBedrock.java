@@ -1,27 +1,32 @@
 package DigBedrock;
 
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
-@Mod(modid="DigBedrock", name="DigBedrock", version="@VERSION@",dependencies="required-after:FML")
+@Mod(modid = DigBedrock.MOD_ID,
+        name = DigBedrock.MOD_NAME,
+        version = DigBedrock.MOD_VERSION,
+        dependencies = DigBedrock.MOD_DEPENDENCIES,
+        useMetadata = true,
+        acceptedMinecraftVersions = DigBedrock.MOD_MC_VERSION)
+public class DigBedrock {
+    public static final String MOD_ID = "DigBedrock";
+    public static final String MOD_NAME = "DigBedrock";
+    public static final String MOD_VERSION = "@VERSION@";
+    public static final String MOD_DEPENDENCIES = "required-after:Forge@[12.17.0,)";
+    public static final String MOD_MC_VERSION = "[1.9,1.10.99]";
 
-public class DigBedrock
-{
-	@Mod.Instance("DigBedrock")
-	public static DigBedrock instance;
-	
-	@Mod.EventHandler
-	public void preInit(FMLPreInitializationEvent event)
-	{
-		Blocks.bedrock.setHardness(200.0F).setHarvestLevel("pickaxe", 3);
-	}
+    @Mod.EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
+        Blocks.BEDROCK.setHardness(200.0F).setHarvestLevel("pickaxe", 3);
+    }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
@@ -29,21 +34,23 @@ public class DigBedrock
     }
 
     @SubscribeEvent
-    public void onHarvestBedrock(PlayerInteractEvent event) {
-        Block block = event.world.getBlock(event.x, event.y, event.z);
-        if (event.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK && block == Blocks.bedrock && event.y == 0) {
-            event.setCanceled(true);
+    public void onHarvestBedrock(PlayerInteractEvent.LeftClickBlock event) {
+        if (event.getPos() != null) {
+            Block block = event.getWorld().getBlockState(event.getPos()).getBlock();
+            if (block == Blocks.BEDROCK && event.getPos().getY() == 0) {
+                event.setCanceled(true);
+            }
         }
     }
 
     @SubscribeEvent
     public void digSpeed(PlayerEvent.BreakSpeed event) {
-        if (event.block == Blocks.bedrock) {
-            if (event.y < 40 && event.y > 0) {
-                event.newSpeed = event.originalSpeed * event.y;
+        if (event.getState().getBlock() == Blocks.BEDROCK) {
+            if (event.getPos().getY() < 40 && event.getPos().getY() > 0) {
+                event.setNewSpeed(event.getOriginalSpeed() * event.getPos().getY());
             }
-            if (event.y >= 40) {
-                event.newSpeed = event.originalSpeed * 40;
+            if (event.getPos().getY() >= 40) {
+                event.setNewSpeed(event.getOriginalSpeed() * 40);
             }
         }
     }
