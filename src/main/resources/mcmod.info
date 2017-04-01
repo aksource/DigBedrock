@@ -1,0 +1,19 @@
+[
+{
+    "modinfoversion": 2,
+    "modid": "DigBedrock",
+    "name": "Dig Bedrock",
+    "description": "Enable to Dig Bedrock",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "http://forum.minecraftuser.jp/viewtopic.php?f=13&t=6672",
+    "updateUrl": "",
+    "authorList": ["takanasayo","A.K."],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "requiredMods": ["Forge"],
+    "dependencies": [],
+    "useDependencyInformation": "false"
+}
+]
