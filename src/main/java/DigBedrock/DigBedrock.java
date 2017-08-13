@@ -20,8 +20,8 @@ public class DigBedrock {
     public static final String MOD_ID = "digbedrock";
     public static final String MOD_NAME = "DigBedrock";
     public static final String MOD_VERSION = "@VERSION@";
-    public static final String MOD_DEPENDENCIES = "required-after:forge@[13.20.0,)";
-    public static final String MOD_MC_VERSION = "[1.11,1.99.99]";
+    public static final String MOD_DEPENDENCIES = "";
+    public static final String MOD_MC_VERSION = "[1.12,1.99.99]";
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
