@@ -1,14 +1,13 @@
 package DigBedrock;
 
+import net.minecraft.init.Blocks;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 @Mod(modid = DigBedrock.MOD_ID,
         name = DigBedrock.MOD_NAME,
@@ -34,12 +33,9 @@ public class DigBedrock {
     }
 
     @SubscribeEvent
-    public void onHarvestBedrock(PlayerInteractEvent.LeftClickBlock event) {
-        if (event.getPos() != null) {
-            Block block = event.getWorld().getBlockState(event.getPos()).getBlock();
-            if (block == Blocks.BEDROCK && event.getPos().getY() == 0) {
-                event.setCanceled(true);
-            }
+    public void onBreakingEvent(BlockEvent.BreakEvent event) {
+        if (event.getState().getBlock() == Blocks.BEDROCK && event.getPos().getY() == 0) {
+            event.setCanceled(true);
         }
     }
 
