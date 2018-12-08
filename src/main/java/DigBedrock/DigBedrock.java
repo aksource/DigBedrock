@@ -26,27 +26,33 @@ public class DigBedrock {
     public static final String MOD_MC_VERSION = "[1.12,1.99.99]";
 
     @Mod.EventHandler
+    @SuppressWarnings("unused")
     public void preInit(FMLPreInitializationEvent event) {
         Blocks.BEDROCK.setHardness(200.0F).setHarvestLevel("pickaxe", 3);
     }
 
     @Mod.EventHandler
+    @SuppressWarnings("unused")
     public void init(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(this);
     }
 
     @SubscribeEvent
+    @SuppressWarnings("unused")
     public void onBreakingEvent(BlockEvent.BreakEvent event) {
         if (event.getState().getBlock() == Blocks.BEDROCK) {
             if (event.getPos().getY() == 0) {
                 event.setCanceled(true);
             } else {
-                Block.spawnAsEntity(event.getWorld(), event.getPos(), new ItemStack(Item.getItemFromBlock(Blocks.BEDROCK), 1));
+                Block.spawnAsEntity(event.getWorld(),
+                        event.getPos(),
+                        new ItemStack(Item.getItemFromBlock(Blocks.BEDROCK), 1));
             }
         }
     }
 
     @SubscribeEvent
+    @SuppressWarnings("unused")
     public void digSpeed(PlayerEvent.BreakSpeed event) {
         if (event.getState().getBlock() == Blocks.BEDROCK) {
             if (event.getPos().getY() < 40 && event.getPos().getY() > 0) {
