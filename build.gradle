@@ -3,7 +3,7 @@ sourceSets.main {
     resources.srcDirs project.projectDir.name
 }
 
-version = "1.12-1.7.3"
+version = "1.12-1.7.4"
 minecraft {
     // replacing stuff in the source
     replace '@VERSION@', project.version
@@ -20,7 +20,7 @@ processResources {
         include 'mcmod.info'
 
         // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand 'version': project.version, 'mcversion': project.minecraft.version
     }
 
     // copy everything else, thats not the mcmod.info

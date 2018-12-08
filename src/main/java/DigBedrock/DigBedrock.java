@@ -1,6 +1,9 @@
 package DigBedrock;
 
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -34,8 +37,12 @@ public class DigBedrock {
 
     @SubscribeEvent
     public void onBreakingEvent(BlockEvent.BreakEvent event) {
-        if (event.getState().getBlock() == Blocks.BEDROCK && event.getPos().getY() == 0) {
-            event.setCanceled(true);
+        if (event.getState().getBlock() == Blocks.BEDROCK) {
+            if (event.getPos().getY() == 0) {
+                event.setCanceled(true);
+            } else {
+                Block.spawnAsEntity(event.getWorld(), event.getPos(), new ItemStack(Item.getItemFromBlock(Blocks.BEDROCK), 1));
+            }
         }
     }
 
